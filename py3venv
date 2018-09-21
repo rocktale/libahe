@@ -1,0 +1,46 @@
+workon() {
+  local VENV_FOLDER=${PYVENV_WORKON_HOME:-"$HOME/.pyvenv"}
+
+  case "$#" in
+    0)  ls $VENV_FOLDER 2>/dev/null
+        ;;
+
+    1)  if [ ! -d $VENV_FOLDER/$1 ]; then
+          echo "Unknown environment: $1"
+          return
+        fi
+
+        # activate the environment
+        source $VENV_FOLDER/$1/bin/activate
+        ;;
+
+    2)  if [ "$1" == "-c" ]; then
+          if [ ! -d $VENV_FOLDER/$2 ]; then
+            python3 -m venv $VENV_FOLDER/$2
+            echo "Created virtual environment: $2"
+          fi
+          # ignore if already there
+        else
+          echo "Unknown option: $1"
+          return
+        fi
+
+        # activate the environment
+        source $VENV_FOLDER/$2/bin/activate
+        ;;
+
+    *)  echo "Syntax: workon [-c] venv"
+        ;;
+  esac
+}
+
+_workon() {
+  # only complete the first parameter
+  if [ "${#COMP_WORDS[@]}" != "2" ]; then
+    return
+  fi
+
+  COMPREPLY=($(compgen -W "$(workon)" -- "${COMP_WORDS[1]}"))
+}
+
+complete -F _workon workon
