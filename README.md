@@ -26,5 +26,5 @@ before activation if it does not exist already, e.g. `workon -c nikola`
 
 The following variables can be set to fine tune the behavior:
 
-- **PYVENV_WORKON_HOME**: Variable defining the base directory of all virtual
+- **PY3VENV_HOME**: Variable defining the base directory of all virtual
 environments; defaults to `~/.pyvenv`

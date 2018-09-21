@@ -1,5 +1,5 @@
 workon() {
-  local VENV_FOLDER=${PYVENV_WORKON_HOME:-"$HOME/.pyvenv"}
+  local VENV_FOLDER=${PY3VENV_HOME:-"$HOME/.pyvenv"}
 
   case "$#" in
     0)  ls $VENV_FOLDER 2>/dev/null
